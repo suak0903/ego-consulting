@@ -59,6 +59,15 @@
   var db = document.getElementById('demobar');
   if (db) document.getElementById('demoClose').addEventListener('click', function () { db.classList.add('hide'); });
 
+  // Kontaktformular: baut die Mail im E-Mail-Programm, bis ein Formular-Endpunkt angebunden ist
+  var kf = document.getElementById('kform');
+  if (kf) kf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var w = function (id) { return document.getElementById(id).value.trim(); };
+    var text = w('f-msg') + '\n\n' + w('f-name') + '\n' + w('f-mail');
+    window.location.href = 'mailto:' + kf.getAttribute('data-an') + '?subject=' + encodeURIComponent('Anfrage über die Webseite') + '&body=' + encodeURIComponent(text);
+  });
+
   // Videos: YouTube lädt erst nach Klick (ohne Klick keine Verbindung zu YouTube)
   document.querySelectorAll('.video__frame[data-yt]').forEach(function (b) {
     b.addEventListener('click', function () {
